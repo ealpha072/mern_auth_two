@@ -37,5 +37,6 @@ export const userSlice = createSlice({
 
     }
 })
+```
 Check a smaple reducers here [Sample reducer] (github.com/ealpha072/mern_user_administration/blob/main/client/src/redux/userSlice.js)
 
