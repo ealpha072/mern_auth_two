@@ -18,7 +18,7 @@ userRouter.post('/register', async (req, res, next) => {
         const existingUser = await User.findOne({email:email, username:username})
 
         if (existingUser){
-            res.json({message:'Email already exists try a different one'})
+            res.json({error:'Email already exists try a different one'})
         }else{
             const saltRound = 10
             const passwordHash = await bcrypt.hash(password, saltRound)

@@ -41,11 +41,11 @@ export const userSlice = createSlice({
         [registerUser.fulfilled]:(state, {payload}) =>{
             state.isFetching = false
             state.isSuccess = true
-            if(payload.message){
+            if(payload.error){
                 state.isError = true
                 state.errorMessage = payload.message
             }else{
-                state.isRegistered = true 
+                state.isRegistered = true
             }
         },
         [registerUser.rejected]:(state, {payload}) => {
