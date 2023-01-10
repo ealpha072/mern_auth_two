@@ -26,6 +26,8 @@ mongoose.connect(config.URL)
 app.use(cors())
 app.use(middleware.requestLogger)
 app.use(middleware.faviconIgnore)
+app.use(express.json())
 app.use('/users', userRouter)
 
 app.use(middleware.unKnownEndpoints)
+app.use(middleware.errorHandler)

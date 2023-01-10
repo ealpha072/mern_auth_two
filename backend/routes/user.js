@@ -1,6 +1,7 @@
 import express from 'express'
+import bcrypt from 'bcrypt'
 const userRouter = express.Router()
-import User from '../models/user'
+import User from '../models/user.js'
 
 
 userRouter.get('/', (req, res) => {
@@ -8,8 +9,9 @@ userRouter.get('/', (req, res) => {
 
 })
 
-userRouter.get('/register', async (req, res, next) => {
-    const {email, password, username} = newuser
+userRouter.post('/register', async (req, res, next) => {
+    console.log(req.body)
+    const {email, password, username} = req.body
 
     try {
         //look for user email if it exists
@@ -18,10 +20,15 @@ userRouter.get('/register', async (req, res, next) => {
         if (existingUser){
             res.json({message:'Email already exists try a different one'})
         }else{
-            
+            const saltRound = 10
+            const passwordHash = await bcrypt.hash(password, saltRound)
+            const user = new User({username, email, passwordHash})
+            const savedUser = await user.save()
+            res.json({message:'Registration successfull', user:savedUser})
         }
     } catch (error) {
-        
+        res.json({error: 'Error registering user'})
+        next(error)
     }
 })
 

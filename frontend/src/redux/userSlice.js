@@ -5,11 +5,12 @@ const baseUrl = 'http://localhost:5000/users'
 
 export const registerUser = createAsyncThunk ('user/register', async (data, thunkAPI) => {
     const response = await axios.post(`${baseUrl}/register`, data)
+    console.log(response.data)
     return response.data
 })
 
 export const loginUser = createAsyncThunk ('user/login', async (data, thunkAPI) => {
-    const response = await axios.post(`${baseUrl}/login`)
+    const response = await axios.post(`${baseUrl}/login`, data)
     return response.data
 })
 

@@ -15,8 +15,12 @@ const faviconIgnore = (request, response, next) => {
     next()
 }
 
+const errorHandler = (error, req, res, next) => {
+    logger.error(error)
+}
+
 const unKnownEndpoints = (req, res) => {
     res.status(404).json({error:"Unknown endpoint"})
 }
 
-export default {requestLogger, faviconIgnore, unKnownEndpoints}
+export default {requestLogger, faviconIgnore, unKnownEndpoints, errorHandler}
