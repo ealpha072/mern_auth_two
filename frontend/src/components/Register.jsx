@@ -1,8 +1,12 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { registerUser } from '../redux/userSlice'
+import { useDispatch } from 'react-redux'
 
 const Register = () => {
 
+    const dispatch = useDispatch()
+    
     const [formData, setFormData] = useState({
         username:'',
         email:'',
@@ -20,7 +24,7 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData)
-        dispatch(postUser(formData))
+        dispatch(registerUser(formData))
     }
 
     return (

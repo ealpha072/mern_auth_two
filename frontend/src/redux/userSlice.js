@@ -4,7 +4,7 @@ const baseUrl = 'http://localhost:5000/users'
 
 
 export const registerUser = createAsyncThunk ('user/register', async (data, thunkAPI) => {
-    const response = await axios.post(`${baseUrl}/register`)
+    const response = await axios.post(`${baseUrl}/register`, data)
     return response.data
 })
 
@@ -47,7 +47,8 @@ export const userSlice = createSlice({
                 state.isRegistered = true 
             }
         },
-        [postUser.rejected]:(state, {payload}) => {
+        [registerUser.rejected]:(state, {payload}) => {
+            console.log(payload)
             state.isFetching = false
             state.isSuccess = false
             state.isError = true
