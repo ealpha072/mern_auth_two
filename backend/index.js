@@ -2,6 +2,7 @@ import express from 'express'
 //import morgan from 'morgan'
 import config from './utils/config.js'
 import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 import logger from './utils/logger.js'
 import middleware from './utils/middleware.js'
 import cors from 'cors'
@@ -26,6 +27,7 @@ mongoose.connect(config.URL)
 app.use(cors())
 app.use(middleware.requestLogger)
 app.use(middleware.faviconIgnore)
+app.use(bodyParser.json())
 app.use(express.json())
 app.use('/users', userRouter)
 
