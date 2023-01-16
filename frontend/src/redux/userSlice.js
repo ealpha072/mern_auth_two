@@ -84,3 +84,4 @@ export const userSlice = createSlice({
 })
 
 export const {clearState, clearErrorMsg} = userSlice.actions
+export const userSelector = state => state.user

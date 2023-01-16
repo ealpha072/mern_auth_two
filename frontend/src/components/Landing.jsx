@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import { loginUser } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 const Landing = () => {
 
+	const dispatch = useDispatch()
 	const [formData, setFormData] = useState({email:'', password:''})
 	const handleChange = (e) => {
         e.preventDefault()
@@ -15,7 +18,7 @@ const Landing = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData)
-
+		dispatch(loginUser(formData))
     }
 
   	return (
