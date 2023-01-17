@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import { loginUser } from "../redux/userSlice";
-import { useDispatch } from "react-redux";
+import { loginUser, userSelector, clearErrorMsg, clearState, userSelector } from "../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Landing = () => {
 
