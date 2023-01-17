@@ -70,6 +70,7 @@ export const userSlice = createSlice({
             }else{
                 state.userDetails = payload
                 state.isLoggedin = true
+                state.isRegistered = true
                 state.errorMessage = false
             }
             return state

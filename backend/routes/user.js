@@ -4,7 +4,6 @@ import logger from '../utils/logger.js'
 const userRouter = express.Router()
 import User from '../models/user.js'
 
-
 userRouter.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>')
 
@@ -37,8 +36,9 @@ userRouter.post('/login', async(req, res, next) => {
     logger.info(req.body)
     const {email, password} = req.body
     try {
-        const findUser = User.findOne({email})
+        const findUser = await User.findOne({email})
 
+        logger.info(findUser)
         let checkUser = findUser === null ? 
             false : 
             await bcrypt.compare(password, findUser.passwordHash)
@@ -46,6 +46,7 @@ userRouter.post('/login', async(req, res, next) => {
         if(!(checkUser && findUser)){
             res.status(404).json({error: 'Invalid username or password please try again'})
         }
+        res.json({message: 'Login successfull', user:findUser})
     } catch (error) {
         logger.error(error.message)
         next(error)
