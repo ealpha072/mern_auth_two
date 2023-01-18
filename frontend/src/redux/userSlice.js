@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 const baseUrl = 'http://localhost:5000/users'
 
-
 export const registerUser = createAsyncThunk ('user/register', async (data, thunkAPI) => {
     const response = await axios.post(`${baseUrl}/register`, data)
     console.log(response.data)
@@ -52,7 +51,7 @@ export const userSlice = createSlice({
             state.isFetching = false
             state.isSuccess = false
             state.isError = true
-            state.errorMessage = payload.message
+            state.errorMessage = payload.error
         },
 
         //login extra reducers
@@ -75,10 +74,11 @@ export const userSlice = createSlice({
             return state
         },
         [loginUser.rejected]: (state, {payload}) => {
+            console.log(payload)
             state.isFetching = false
             state.isSuccess = false
             state.isError = true
-            state.errorMessage = payload.message
+            state.errorMessage = payload.error
         }
     }
 })

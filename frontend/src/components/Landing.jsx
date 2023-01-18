@@ -32,7 +32,7 @@ const Landing = () => {
 		//setFormData({email:'', password:''})
     }
 
-	const errorDiv = errorMessage !== '' ?  
+	const errorDiv = errorMessage !== '' ?
 		<div className="error-message"><h5>{errorMessage}</h5></div> : null
 
   	return (
@@ -55,12 +55,12 @@ const Landing = () => {
 					<div className="email">
 						<i className="fa fa-envelope"></i>
 						<input
-						type="text"
-						name="email"
-						required
-						id="email-input"
-						placeholder="Email"
-						onChange={handleChange}
+							type="text"
+							name="email"
+							required
+							id="email-input"
+							placeholder="Email"
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="pass">
@@ -90,7 +90,7 @@ const Landing = () => {
 				<h1>Hello, friend</h1>
 				<p>Enter your personal information to continue</p>
 				<Link to="register">
-				<button>Sign up</button>
+					<button>Sign up</button>
 				</Link>
 			</div>
 		</div>

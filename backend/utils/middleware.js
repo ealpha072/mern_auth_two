@@ -16,7 +16,11 @@ const faviconIgnore = (request, response, next) => {
 }
 
 const errorHandler = (error, req, res, next) => {
-    logger.error(error)
+    logger.error(error.code)
+    if (error.code === 1100){
+        logger.error(error.message)
+        return res.status(401).json({ error: 'Email or username already exists' })
+    }
 }
 
 const unKnownEndpoints = (req, res) => {

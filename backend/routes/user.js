@@ -41,9 +41,10 @@ userRouter.post('/login', async(req, res, next) => {
             await bcrypt.compare(password, findUser.passwordHash)
 
         if(!(checkUser && findUser)){
-            res.status(404).json({error: 'Invalid username or password please try again'})
+            res.status(400).send({error: 'Invalid username or password please try again'})
+        } else {
+            res.json({message: 'Login successfull', user:findUser})
         }
-        res.json({message: 'Login successfull', user:findUser})
     } catch (error) {
         logger.error(error.message)
         next(error)

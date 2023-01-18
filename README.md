@@ -38,5 +38,8 @@ export const userSlice = createSlice({
     }
 })
 ```
+
+5. To fix page not navigating, add a dependency to the useEffect
+
 Check a smaple reducers here [Sample reducer] (github.com/ealpha072/mern_user_administration/blob/main/client/src/redux/userSlice.js)
 

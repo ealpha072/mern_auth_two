@@ -1,12 +1,22 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { registerUser } from '../redux/userSlice'
-import { useDispatch } from 'react-redux'
+import { registerUser, userSelector, clearErrorMsg, clearState } from '../redux/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const Register = () => {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    
+
+    const { isRegistered , errorMessage } = useSelector(userSelector)
+
+    useEffect(()=> {
+        if (isRegistered === true ){
+            dispatch(clearState)
+            navigate('/')
+        }
+    }, [isRegistered])
+
     const [formData, setFormData] = useState({
         username:'',
         email:'',
@@ -27,7 +37,8 @@ const Register = () => {
         dispatch(registerUser(formData))
     }
 
-    
+    const errorDiv = errorMessage !== '' ?
+		<div className="error-message"><h5>{errorMessage}</h5></div> : null
 
     return (
         <div className="app-container d-flex">
@@ -39,6 +50,7 @@ const Register = () => {
                     <div><i className="fa fa-facebook"></i></div>
                 </div>
                 <form action=""onSubmit={handleSubmit} >
+                    {errorDiv}
                     <div className="username">
                         <i className="fa fa-user"></i>
                         <input type="text" name="username" required placeholder="Username" onChange={handleChange} />

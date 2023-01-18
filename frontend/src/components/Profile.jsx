@@ -1,8 +1,8 @@
 const Profile = () => {
     return (
-        <div className='app-container'>
+        <div className=''>
             <div className="profile">
-                <h1>This is the profile page</h1>
+                <h5>This is the profile page</h5>
             </div>
         </div>
     )
