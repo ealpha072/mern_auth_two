@@ -27,6 +27,8 @@ const Register = () => {
         dispatch(registerUser(formData))
     }
 
+    
+
     return (
         <div className="app-container d-flex">
             <div className="left side">

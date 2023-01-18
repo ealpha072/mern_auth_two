@@ -1,12 +1,22 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser, userSelector, clearErrorMsg, clearState } from "../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Landing = () => {
-
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const {isLoggedIn, errorMessage} = useSelector(userSelector)
 	const [formData, setFormData] = useState({email:'', password:''})
+
+	useEffect(()=>{
+		if (isLoggedIn === true){
+			dispatch(clearState())
+			navigate('/profile')
+		}
+	}, [isLoggedIn])
+
 	const handleChange = (e) => {
         e.preventDefault()
         setFormData({
@@ -19,7 +29,11 @@ const Landing = () => {
         e.preventDefault()
         console.log(formData)
 		dispatch(loginUser(formData))
+		//setFormData({email:'', password:''})
     }
+
+	const errorDiv = errorMessage !== '' ?  
+		<div className="error-message"><h5>{errorMessage}</h5></div> : null
 
   	return (
 		<div className="app-container d-flex">
@@ -37,6 +51,7 @@ const Landing = () => {
 					</div>
 				</div>
 				<form action="" onSubmit={handleSubmit}>
+					{errorDiv}
 					<div className="email">
 						<i className="fa fa-envelope"></i>
 						<input

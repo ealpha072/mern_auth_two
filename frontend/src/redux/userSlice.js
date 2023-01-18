@@ -28,7 +28,6 @@ export const userSlice = createSlice({
         clearState: (state) => {
             state.isFetching = false
             state.isError = false
-            state.isError = false
             return state
         },
         clearErrorMsg: (state) => {
@@ -69,7 +68,7 @@ export const userSlice = createSlice({
                 state.errorMessage = payload.error
             }else{
                 state.userDetails = payload
-                state.isLoggedin = true
+                state.isLoggedIn = true
                 state.isRegistered = true
                 state.errorMessage = false
             }
