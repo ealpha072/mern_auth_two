@@ -16,13 +16,13 @@ export const registerUser = createAsyncThunk (
 
 export const loginUser = createAsyncThunk (
     'user/login', 
-    async (data, thunkAPI) => {
+    async (data, {rejectWithValue}) => {
         try {
             const response = await axios.post(`${baseUrl}/login`, data)
             return response.data
         } catch (error) {
             console.log(error)
-            return rejectWithValue(error.response.data.error)
+            return rejectWithValue(error.response.data)
         }
 })
 
@@ -86,12 +86,12 @@ export const userSlice = createSlice({
             }
             return state
         },
-        [loginUser.rejected]: (state, action) => {
-            //console.log(payload)
+        [loginUser.rejected]: (state, {payload}) => {
+            console.log(payload)
             state.isFetching = false
             state.isSuccess = false
             state.isError = true
-            state.errorMessage = action.payload
+            state.errorMessage = payload.error
         }
     }
 })
