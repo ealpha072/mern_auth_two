@@ -2,15 +2,28 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 const baseUrl = 'http://localhost:5000/users'
 
-export const registerUser = createAsyncThunk ('user/register', async (data, thunkAPI) => {
-    const response = await axios.post(`${baseUrl}/register`, data)
-    console.log(response.data)
-    return response.data
+export const registerUser = createAsyncThunk (
+    'user/register', 
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.post(`${baseUrl}/register`, data)
+            console.log(response.data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue('Error in handling request')
+        }
 })
 
-export const loginUser = createAsyncThunk ('user/login', async (data, thunkAPI) => {
-    const response = await axios.post(`${baseUrl}/login`, data)
-    return response.data
+export const loginUser = createAsyncThunk (
+    'user/login', 
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.post(`${baseUrl}/login`, data)
+            return response.data
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(error.response.data.error)
+        }
 })
 
 export const userSlice = createSlice({
@@ -73,12 +86,12 @@ export const userSlice = createSlice({
             }
             return state
         },
-        [loginUser.rejected]: (state, {payload}) => {
-            console.log(payload)
+        [loginUser.rejected]: (state, action) => {
+            //console.log(payload)
             state.isFetching = false
             state.isSuccess = false
             state.isError = true
-            state.errorMessage = payload.error
+            state.errorMessage = action.payload
         }
     }
 })
