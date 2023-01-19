@@ -21,7 +21,6 @@ export const loginUser = createAsyncThunk (
             const response = await axios.post(`${baseUrl}/login`, data)
             return response.data
         } catch (error) {
-            console.log(error)
             return rejectWithValue(error.response.data)
         }
 })
@@ -87,7 +86,6 @@ export const userSlice = createSlice({
             return state
         },
         [loginUser.rejected]: (state, {payload}) => {
-            console.log(payload)
             state.isFetching = false
             state.isSuccess = false
             state.isError = true

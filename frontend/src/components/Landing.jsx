@@ -28,7 +28,14 @@ const Landing = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData)
-		dispatch(loginUser(formData))
+		try {
+			dispatch(loginUser(formData))
+		} catch (error) {
+			console.log(error)
+			setTimeout(()=> {
+				dispatch(clearErrorMsg())
+			}, 5000)
+		}
 		//setFormData({email:'', password:''})
     }
 
